@@ -13,8 +13,9 @@ if __name__ == "__main__":
         print("[1] - Posadz rosline.")
         print("[2] - Pokaż twoje zasoby.")
         print("[3] - Sprawdź pole.")
-        print("[4] - Podlej rośliny.")
+        print("[4] - Podlej lub nawieź rośliny.")
         print("[5] - Zakupy.")
+        print("[6] - Wykop i sprzedaj.")
         print("[0] - Pomiń turę.")
         print("-------------------------")
 

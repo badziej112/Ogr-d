@@ -9,16 +9,21 @@ class Pole:
         self.rozmiar = rozmiar
 
     @staticmethod
-    def wykryj_rosline(pole, Roslina, jakosc, woda):
+    def wykryj_rosline(pole, Roslina, jakosc, woda, nawoz_woda):
 
         if isinstance(pole, Roslina) is True:
 
-            if pole.nawodnienie == True:
+            if nawoz_woda == True:
                 pole.jakosc -= jakosc
 
-            if pole.nawodnienie == False:
+            if nawoz_woda == False:
                 pole.jakosc += jakosc
-                pole.nawodnienie = True
+                if nawoz_woda == pole.nawożone:
+                    pole.nawożone = True
+                elif nawoz_woda == pole.nawodnienie:
+                    pole.nawodnienie = True
+                else:
+                    "Coś poszło nie tak!"
 
             return woda
 
@@ -48,46 +53,69 @@ class Pole:
         self.pole[x, y]  =  Ziemniak()
         self.pokaz()
 
+    def wykop_rosline(self, x, y):
 
-    def podlej_rosline(self, a, b, wybor):
+        if isinstance(self.pole[x, y], Obszar) is False:
+            zarobek = self.pole[x, y].wartosc
+            self.pole[x, y] = Obszar()
+            return  zarobek
+        else:
+            print("Na podanym polu nie ma rośliny!")
+            return 0
 
-        ubytek_wody = 0
+    def podlej_rosline(self, a, b, wybor, nw):
+
+        ubytek = 0
         if wybor == 1:
             for x in range(self.rozmiar):
                 for y in range(self.rozmiar):
                     if self.pole[x, y].symbol != "   ":
-                        ubytek_wody += self.wykryj_rosline(self.pole[x, y], Ziemniak, 5, 5)
+                        if nw == 1:
+                            ubytek += self.wykryj_rosline(self.pole[x, y], Ziemniak, 5, 5, self.pole[x, y].nawodnienie)
+                        elif nw == 2:
+                            ubytek += self.wykryj_rosline(self.pole[x, y], Ziemniak, 10, 5, self.pole[x, y].nawożone)
 
         if wybor == 2:
             if self.pole[a, b].symbol != "   ":
-                ubytek_wody += self.wykryj_rosline(self.pole[a, b], Ziemniak, 5, 5)
+                if nw == 1:
+                    ubytek += self.wykryj_rosline(self.pole[x, y], Ziemniak, 5, 5, self.pole[x, y].nawodnienie)
+                elif nw == 2:
+                    ubytek += self.wykryj_rosline(self.pole[x, y], Ziemniak, 10, 5, self.pole[x, y].nawożone)
 
-        return ubytek_wody
+        return ubytek
 
     def dojrzewanie(self):
 
         for x in range(self.rozmiar):
             for y in range(self.rozmiar):
                 if self.pole[x,y].symbol != "   ":
+
                     if self.pole[x, y].nawodnienie == False:
                         self.pole[x, y].jakosc -= 15
-                    if self.pole[x, y].nawodnienie == True:
+                    elif self.pole[x, y].nawodnienie == True:
                         self.pole[x,y].jakosc += 10
                         self.pole[x, y].nawodnienie = False
-                    if self.pole[x,y].jakosc >= 50:
+
+                    if self.pole[x, y].jakosc >= 100:
+                        self.pole[x, y].symbol = self.pole[x, y].symbol[0] + "++"
+                        self.pole[x, y].wartosc = self.pole[x, y].wartosc_stala * 2
+
+                    elif self.pole[x,y].jakosc >= 50:
                         self.pole[x,y].symbol = self.pole[x,y].symbol[0] + "+ "
-                    if self.pole[x,y].jakosc >= 100:
-                        self.pole[x,y].symbol = self.pole[x,y].symbol[0] + "++"
+                        self.pole[x,y].wartosc = self.pole[x,y].wartosc_stala * 1.5
+
+                    else:
+                        self.pole[x,y].symbol = self.pole[x,y].symbol[0] + "  "
+                        self.pole[x,y].wartosc = self.pole[x,y].wartosc_stala
+
                     if self.pole[x,y].jakosc < 0:
                         self.pole[x,y] = Obszar()
-                    if self.pole[x,y].jakosc > 125:
+                    elif self.pole[x,y].jakosc > 125:
                         self.pole[x,y] = Obszar()
-
-
 
     def sprawdz(self, x, y):
 
-        return self.pole[x, y].jakosc, self.pole[x, y].wartosc, self.pole[x, y].nawodnienie
+        return self.pole[x, y].jakosc, self.pole[x, y].wartosc, self.pole[x, y].nawodnienie, self.pole[x, y].nawożone
 
 
 

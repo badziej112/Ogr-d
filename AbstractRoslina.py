@@ -7,5 +7,7 @@ class AbstractRoslina(metaclass=ABCMeta):
 
         self.jakosc = jakosc
         self.wartosc = wartosc
+        self.wartosc_stala = wartosc
         self.symbol = symbol
         self.nawodnienie = False
+        self.nawożone = False
