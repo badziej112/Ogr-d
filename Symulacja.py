@@ -81,21 +81,23 @@ class Symulacja:
 
         if a == 1:
 
-            print("Co chcesz posadzić?")
-            print("[1] - Ziemniak.")
-            print("[2] - Sałata.")
-            print("[3] - Pomidor.")
-            print("[4] - Truskawka.")
-            wybierz = self.wpisz_liczbe()
-            print("Na jakich współrzędnych chcesz sadzić?")
-            print("x =", end=' ')
-            wybor1 = self.wspolrzedne() - 1
-            print("y =", end=' ')
-            wybor2 = self.wspolrzedne() - 1
-            pole = Pole(self.mapa, self.rozmiar)
-            pole.posadz_rosline(wybor1, wybor2, wybierz)
-            self.nasiona -=1
-            self.cykl += 1
+            if self.nasiona <= 0:
+                print("Nie masz nasion!")
+            else:
+                print("Co chcesz posadzić?")
+                print("[1] - Ziemniak.")
+                print("[2] - Sałata.")
+                print("[3] - Pomidor.")
+                print("[4] - Truskawka.")
+                wybierz = self.wpisz_liczbe()
+                print("Na jakich współrzędnych chcesz sadzić?")
+                print("x =", end=' ')
+                wybor1 = self.wspolrzedne() - 1
+                print("y =", end=' ')
+                wybor2 = self.wspolrzedne() - 1
+                pole = Pole(self.mapa, self.rozmiar)
+                pole.posadz_rosline(wybor1, wybor2, wybierz)
+                self.nasiona -=1
 
         elif a == 2:
 
@@ -143,9 +145,9 @@ class Symulacja:
         elif a == 5:
 
             print("Co chcesz kupić?")
-            print("[1] - Nasiona.")
-            print("[2] - Wodę.")
-            print("[3] - Nawóz.")
+            print("[1] - Nasiona. 10zł/szt.")
+            print("[2] - Wodę 1zł/szt.")
+            print("[3] - Nawóz. 5zł/szt.")
             wybor_kupna = self.wpisz_liczbe()
             if wybor_kupna == 1:
                 self.nasiona += self.zakupy(10)

@@ -128,6 +128,10 @@ class Pole:
                     ubytek += u
                     iloscnawozu += i
 
+            else:
+                print("Na polu nie ma rośliny!")
+                return 0
+
         return ubytek
 
     def dojrzewanie(self):

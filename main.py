@@ -7,7 +7,13 @@ if __name__ == "__main__":
 
     print("Witaj w symulacji ogrodnika!")
 
-    while sim.cykl < 99:
+    while sim.cykl < 200 or sim.monety <= 1000:
+
+        if sim.woda <= 0 and sim.nawoz <= 0 and sim.nasiona <= 0:
+            print("Przegrałeś! Skończyły ci się zasoby.")
+            print("Zdobyto", sim.monety, "monet w", sim.cykl, "turach.")
+            sys.exit()
+
         print("-------------------------")
         print("Wybierz akcje:")
         print("[1] - Posadz rosline.")
@@ -21,4 +27,9 @@ if __name__ == "__main__":
 
         wybor = int(input())
         sim.dzialania(wybor)
+
+    print("Wygrałeś!")
+    print("Zdobyto", sim.monety, "monet w", sim.cykl, "turach.")
+
+
 
