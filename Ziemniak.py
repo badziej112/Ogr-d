@@ -4,7 +4,7 @@ class Ziemniak(AbstractRoslina):
 
     def __init__(self):
 
-        super().__init__(10, 20, "Z  ")
+        super().__init__(20, "Z  ")
 
 
 

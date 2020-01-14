@@ -1,20 +1,14 @@
-class Gowno():
-
-    def __init__(self):
-
-        self.x = 10
-
-    def print(self):
-
-        return self.x
 
 
-gowno = Gowno()
+def gowno():
 
-print(type(gowno))
-print(isinstance(gowno, Gowno))
+    x = 10
 
-if isinstance(gowno, Gowno) is True:
+    return  -x, x
 
-    print(gowno.print())
-    print("cos")
+c = 0
+d = 0
+a, b = gowno()
+c += a
+d += b
+print(c, d)

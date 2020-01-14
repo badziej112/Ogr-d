@@ -4,7 +4,7 @@ class Obszar(AbstractRoslina):
 
     def __init__(self):
 
-        super().__init__(None, None, "   ")
+        super().__init__(None, "   ")
 
 
 
